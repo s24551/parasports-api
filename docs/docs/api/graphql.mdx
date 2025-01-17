@@ -1,0 +1,192 @@
+---
+sidebar_position: 2
+---
+
+# GraphQL API
+
+## Overview
+Our GraphQL API provides flexible querying capabilities with filtering, sorting, and pagination.
+
+## Queries
+
+### Athletes
+
+#### Get All Athletes
+```
+query {
+  athletes {
+    id
+    firstName
+    lastName
+    country
+    disability
+    classification
+  }
+}
+```
+
+#### Get Athletes with Filtering
+``` 
+query {
+  athletes(
+    filter: {
+      country: {
+        eq: "Poland"        # dokładne dopasowanie
+        contains: "land"    # zawiera tekst
+        notEq: "USA"       # nie równa się
+        notContains: "sia"  # nie zawiera tekstu
+      }
+      disability: {
+        eq: "Amputation"
+      }
+    }
+  ) {
+    firstName
+    lastName
+    country
+  }
+}
+```
+#### Get Athletes with Sorting
+``` 
+query {
+  athletes(
+    sort: {
+      field: "lastName"
+      order: "ASC"  # lub "DESC"
+    }
+  ) {
+    firstName
+    lastName
+  }
+}
+```
+
+#### Get Athletes with Pagination
+``` 
+query {
+  athletes(
+    pagination: {
+      page: 1
+      limit: 5
+    }
+  ) {
+    firstName
+    lastName
+  }
+}
+```
+### ParaSports
+Get All Sports
+``` 
+query {
+  paraSports {
+    id
+    name
+    category
+    paralympicStatus
+    yearIntroduced
+  }
+}
+```
+#### Filter Sports by Status
+``` 
+query {
+paraSports(
+    filter: { paralympicStatus: "Current" }
+  ) {
+    id
+    name
+    category
+  }
+}
+```
+### Competitions
+#### Get Upcoming Competitions
+``` 
+query {
+  competitions(
+    filter: { status: "Upcoming" }
+    sort: {
+      field: "startDate"
+      order: "ASC"
+    }
+  ) {
+    name
+    location
+    startDate
+  }
+}
+```
+## Mutations
+### Athletes
+#### Create Athlete
+``` 
+mutation {
+  createAthlete(
+    firstName: "Jan"
+    lastName: "Kowalski"
+    dateOfBirth: "1990-01-01"
+    country: "Poland"
+    disability: "Visual impairment"
+    classification: "T11"
+    sportsIds: ["1", "2"]
+  ) {
+    id
+    firstName
+    lastName
+  }
+}
+```
+#### Update Athlete
+```
+mutation {
+  updateAthlete(
+    id: "1"
+    country: "Poland"
+    classification: "T12"
+  ) {
+    id
+    firstName
+    lastName
+    country
+    classification
+  }
+}
+```
+#### Delete Athlete
+``` 
+mutation {
+  deleteAthlete(id: "1") {
+    id
+    firstName
+    lastName
+  }
+}
+```
+## Filtering Options
+### String Fields
+- eq: Equals
+- contains: Contains substring
+- notEq: Not equals
+- notContains: Doesn't contain substring
+## Number Fields
+- eq: Equals
+- gt: Greater than
+- lt: Less than
+- gte: Greater than or equals
+- lte: Less than or equals
+## Date Fields
+- eq: Equals
+- gt: After date
+- lt: Before date
+- gte: After or on date
+- lte: Before or on date
+## Sorting
+### All queries support sorting with:
+- field: Field to sort by
+- order: "ASC" or "DESC"
+## Pagination
+### All queries support pagination with:
+- page: Page number (starts from 1)
+- limit: Number of items per page

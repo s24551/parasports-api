@@ -1,0 +1,40 @@
+---
+sidebar_position: 2
+---
+
+# Architecture Overview
+
+## System Architecture
+
+The API is built using a layered architecture:
+
+1. **Routes Layer**
+   - Handles HTTP requests
+   - Implements REST endpoints
+   - Manages request validation
+
+2. **Controllers Layer**
+   - Contains business logic
+   - Processes requests
+   - Prepares responses
+
+3. **Models Layer**
+   - Defines data structures
+   - Implements data validation
+   - Manages relationships between entities
+
+4. **GraphQL Layer**
+   - Implements types and resolvers
+   - Handles queries and mutations
+   - Provides advanced filtering capabilities
+
+## Data Flow
+1. Client makes a request (REST or GraphQL)
+2. Request is validated and processed
+3. Business logic is applied
+4. Response is formatted and returned
+
+## Security
+- CORS configuration for secure cross-origin requests
+- Input validation
+- Error handling

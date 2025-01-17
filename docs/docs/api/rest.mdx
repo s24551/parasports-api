@@ -1,0 +1,53 @@
+---
+sidebar_position: 1
+---
+
+# REST API
+
+## Authentication
+Currently, the API is open and doesn't require authentication.
+
+## Response Format
+All responses follow this format:
+```
+{
+  "data": [], // or {} for single items
+  "_links": {
+    "self": { "href": "/current-resource" },
+    "related": { "href": "/related-resource" }
+  }
+}
+```
+## Endpoints
+- Athletes
+- GET /api/athletes
+- Returns a list of all athletes.
+## Query Parameters:
+- country - Filter by country
+- disability - Filter by disability type
+- classification - Filter by sport classification
+## Response Headers:
+- X-Total-Count - Total number of records
+- X-Response-Time - Response time in milliseconds
+
+
+### Athletes
+- GET /api/athletes - Get all athletes
+- POST /api/athletes - Create new athlete
+- GET /api/athletes/:id - Get specific athlete
+- PUT /api/athletes/:id - Update athlete
+- DELETE /api/athletes/:id - Delete athlete
+
+### ParaSports
+- GET /api/sports - Get all sports
+- POST /api/sports - Create new sport
+- GET /api/sports/:id - Get specific sport
+- PUT /api/sports/:id - Update sport
+- DELETE /api/sports/:id - Delete sport
+
+### Competitions
+- GET /api/competitions - Get all competitions
+- POST /api/competitions - Create new competition
+- GET /api/competitions/:id - Get specific competition
+- PUT /api/competitions/:id - Update competition
+- DELETE /api/competitions/:id - Delete competition

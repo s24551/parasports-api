@@ -1,0 +1,110 @@
+---
+sidebar_position: 1
+slug: /
+---
+
+# REST API
+
+## Response Format
+All endpoints follow the HATEOAS principle and return data in this format:
+```json
+{
+  "data": [], // or {} for single items
+  "_links": {
+    "self": { "href": "/current-resource" },
+    "related": { "href": "/related-resource" }
+  }
+}
+```
+## Athletes Endpoints
+```
+GET /api/athletes
+Returns a list of all athletes.
+```
+## Query Parameters:
+- country - Filter by country
+- disability - Filter by disability type
+- classification - Filter by sport classification
+## Response Headers:
+- X-Total-Count - Total number of records
+- X-Response-Time - Response time in milliseconds
+### Example Response:
+```
+{
+  "data": [
+    {
+      "id": "1",
+      "firstName": "Jan",
+      "lastName": "Kowalski",
+      "country": "Poland",
+      "disability": "Visual impairment",
+      "classification": "T11"
+    }
+  ],
+  "_links": {
+    "self": { "href": "/api/athletes" },
+    "sports": { "href": "/api/sports" }
+  }
+}
+```
+### Create a new athlete.
+```
+POST /api/athletes
+```
+### Request Body:
+```
+{
+  "firstName": "Jan",
+  "lastName": "Kowalski",
+  "dateOfBirth": "1990-01-01",
+  "country": "Poland",
+  "disability": "Visual impairment",
+  "classification": "T11"
+}
+```
+
+## Paralympic Sports Endpoints
+```
+GET /api/sports
+```
+- Returns a list of all paralympic sports.
+## Query Parameters:
+- category - Filter by sport category
+- paralympicStatus - Filter by status (Current/Former/Future)
+### Example Response:
+```
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Wheelchair Basketball",
+      "category": "Summer Paralympic Sports",
+      "paralympicStatus": "Current"
+    }
+  ]
+}
+```
+## Competitions Endpoints
+```
+GET /api/competitions
+```
+- Returns a list of all competitions.
+
+## Query Parameters:
+- status - Filter by status (Upcoming/Ongoing/Completed)
+- type - Filter by competition type
+- location - Filter by location
+### Example Response:
+```
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "2024 Paralympic Games",
+      "location": "Paris",
+      "startDate": "2024-08-28",
+      "status": "Upcoming"
+    }
+  ]
+}
+```

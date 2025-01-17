@@ -1,0 +1,62 @@
+---
+sidebar_position: 3
+---
+
+# TypeScript Examples
+
+## Models
+
+Here are the TypeScript interfaces used in our API:
+
+```typescript
+interface Athlete {
+    id: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date;
+    country: string;
+    disability: string;
+    sportsIds: string[];
+    achievements: Achievement[];
+    classification: string;
+}
+```
+```typescript
+interface Achievement {
+    id: string;
+    competitionId: string;
+    place: number;
+    date: Date;
+}
+```
+```typescript
+interface Competition {
+    id: string;
+    name: string;
+    sportId: string;
+    location: string;
+    startDate: Date;
+    endDate: Date;
+    type: "Paralympic Games" | "World Championship" | "Regional Championship" | "National Championship";
+    status: "Upcoming" | "Ongoing" | "Completed" | "Cancelled";
+    participantIds: string[]; // odniesienie do Athletes
+    medalists?: {
+        gold?: string;   // athlete ID
+        silver?: string; // athlete ID
+        bronze?: string; // athlete ID
+    }[];
+    categories: string[]; // kategorie klasyfikacji
+}
+```
+```typescript
+export interface ParaSport {
+    id: string;
+    name: string;
+    description: string;
+    category: string; // np. "Summer Paralympic Sports", "Winter Paralympic Sports"
+    classification: string[]; // różne klasy niepełnosprawności dopuszczone w danym sporcie
+    equipment: string[]; // wymagany sprzęt
+    paralympicStatus: "Current" | "Former" | "Future" | "Demonstration";
+    yearIntroduced: number; // rok wprowadzenia do programu paralympijskiego
+}
+```

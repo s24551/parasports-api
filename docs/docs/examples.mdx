@@ -1,0 +1,108 @@
+---
+sidebar_position: 4
+---
+
+# Przykłady użycia
+
+## REST API
+
+### Kompletny przepływ pracy
+
+
+### 1. Stworzenie nowego sportowca
+```
+const createAthlete = async () => {
+    const response = await fetch('http://localhost:3000/api/athletes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            firstName: "Jan",
+            lastName: "Kowalski",
+            country: "Poland",
+            disability: "Visual impairment",
+            classification: "T11"
+        })
+    });
+    return await response.json();
+};
+```
+
+### 2. Pobranie listy z filtrowaniem
+```
+const getFilteredAthletes = async () => {
+    const response = await fetch('http://localhost:3000/api/athletes?country=Poland');
+    return await response.json();
+};
+```
+
+### 3. Aktualizacja danych
+```
+const updateAthlete = async (id: string) => {
+    const response = await fetch(`http://localhost:3000/api/athletes/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            classification: "T12"
+        })
+    });
+    return await response.json();
+};
+```
+
+## GraphQL API
+### Zaawansowane zapytania
+#### Złożone filtrowanie
+- Wyświetla atletów, którzy są z Kraju innego niż Anglia, ale zawiera w sobie literę "n".
+- Nazwisko sortuje się rosnąco.
+- Paginacja ograniczona do 15 wyników.
+```
+query GetAthletes {
+  athletes(
+    filter: {
+      country: {
+        contains: "n"
+        notEq: "England"
+      }
+    }
+    sort: {
+      field: "lastName"
+      order: "ASC"
+    }
+    pagination: {
+      page: 1
+      limit: 15
+    }
+  ) {
+    id
+    firstName
+    lastName
+    country
+    disability
+    classification
+    achievements {
+      id
+      place
+      date
+    }
+    sportsIds
+  }
+}
+```
+- Zawiera "pol" w kraju, nie jest visual impairment.
+```
+query { 
+  athletes(
+    filter: {  
+      country: { 
+        contains: "pol" }, 
+      disability: { 
+        notEq: "Visual impairment" } }) 
+        { firstName 
+        lastName 
+        country 
+        disability } }
+```
