@@ -19,7 +19,7 @@ Wymagania Dokumentacja
 - src/config/swagger.ts i src/config/swagger-schemas.ts - specyfikacja OpenAPI
 - docs/parasports-docs/* - dokumentacja w Docusaurus
 - OpenAPI UI dostępne pod /api-docs
-- GraphQL Playground dostępne pod /graphql
+- GraphQL Playground dostępne pod /graphql i /playground
 
 Wymagania TypeScript - otypowanie
 
